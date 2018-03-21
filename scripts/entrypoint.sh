@@ -42,6 +42,7 @@ init()
 
 makemessages()
 {
+	init
 	APPNAME=${2:-app}
 	LANG=${3:-zh_hant}
 	echo "Going to makeing messages in project<${APPNAME}>..."
@@ -58,6 +59,7 @@ makemessages()
 
 compilemessages()
 {
+	init
 	APPNAME=${2:-app}
 	echo "Going to compile messages in project<${APPNAME}>..."
 	cd ${CWD}
@@ -68,6 +70,7 @@ compilemessages()
 
 run()
 {
+	init
 	echo "Going to execute the djanto testing server ...."
 	cd ${CWD}
 
