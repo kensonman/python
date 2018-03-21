@@ -21,6 +21,7 @@ create()
 	django-admin startproject conf
 	mv conf/conf/* conf/
 	rmdir conf/conf
+	mv conf/manage.py .
 
 	#Creating app
 	django-admin startapp ${APPNAME}
