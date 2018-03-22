@@ -25,9 +25,13 @@ create()
 
 	#Creating app
 	django-admin startapp ${APPNAME}
+	sed -i "/MIDDLEWARE/iINSTALLED_APPS+=['${APPNAME}',]" conf/settings.py 
 
 	#Set user
 	chown -R ${USERID} ${CWD}
+
+	#Create the basic requirements.txt
+	pip freeze > requirements.txt
 }
 
 # Init the django environments
@@ -45,7 +49,7 @@ makemessages()
 	init
 	APPNAME=${2:-app}
 	LANG=${3:-zh_hant}
-	echo "Going to makeing messages in project<${APPNAME}>..."
+	echo "Going to makeing messages<${LANG}> in project<${APPNAME}>..."
 	cd ${CWD}
 	cd ${APPNAME}
 
@@ -54,7 +58,7 @@ makemessages()
 		mkdir locale
 	fi
 
-	../manage.py makemessages ${LANG}
+	../manage.py makemessages -l ${LANG}
 }
 
 compilemessages()
@@ -84,7 +88,7 @@ cmd()
 	echo "Going to execute the Django command...."
 	cd ${CWD}
 
-	exec "./manage.py ${*:2}"
+	./manage.py ${*:2}
 }
 
 printhelp()
