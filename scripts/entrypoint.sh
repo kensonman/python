@@ -71,10 +71,39 @@ compilemessages()
 run()
 {
 	init
-	echo "Going to execute the djanto testing server ...."
+	echo "Going to execute the Django testing server ...."
+	ADDR=${2:-"0.0.0.0:8000"}
 	cd ${CWD}
 
-	./manage.py runserver 0.0.0.0:8000
+	./manage.py runserver ${ADDR}
+}
+
+cmd()
+{
+	init
+	echo "Going to execute the Django command...."
+	cd ${CWD}
+
+	exec "./manage.py ${*:2}"
+}
+
+printhelp()
+{
+	echo "This entrypoint support belows commands:"
+	echo "  create           - Create a Django project;"
+	echo "    Usage: create <AppName>"
+	echo "  init             - Init the Django environment and install the dependencies;"
+	echo "    Usage: init"
+	echo "  makemessages     - Make the specify translation by django command;"
+	echo "    Usage: makemessages <AppName> [LangCode|default:zh_hant]"
+	echo "  compilemessages  - Compile the specify translation by django command;"
+	echo "    Usage: compilemessages <AppName>"
+	echo "  run              - Execute the testing server"
+	echo "    Usage: run [Addr|default:\"0.0.0.0:8000\"]"
+	echo "  exec             - Execute the specific Django command by prepend ./manage.py"
+	echo "    Usage: exec <cmd>"
+	echo "  help             - Print this help message"
+	echo "    Usage: help"
 }
 
 
@@ -93,6 +122,12 @@ case "$1" in
 		;;
 	run)
 		run "$@"
+		;;
+	exec)
+		cmd "$@"
+		;;
+	help)
+		printhelp
 		;;
 	*)
 		echo "Executing runtime command \"$@\"..."
