@@ -9,6 +9,7 @@ USERID=${UID:-1000}
 create()
 {
 	APPNAME=${2:-app}
+	TMP_REQUIREMENTS=_requirements.txt
 	echo "Going to create the django app<${APPNAME}>..."
 
 	#Change current working directory
@@ -18,10 +19,13 @@ create()
 	pip install django
 
 	#Creating conf
-	django-admin startproject conf
-	mv conf/conf/* conf/
-	rmdir conf/conf
-	mv conf/manage.py .
+	if [ ! -f "manage.py" ]; then
+		echo "Going to create the django project<conf>..."
+		django-admin startproject conf
+		mv conf/conf/* conf/
+		rmdir conf/conf
+		mv conf/manage.py .
+	fi
 
 	#Creating app
 	django-admin startapp ${APPNAME}
@@ -31,7 +35,16 @@ create()
 	chown -R ${USERID} ${CWD}
 
 	#Create the basic requirements.txt
-	pip freeze > requirements.txt
+	pip freeze > $TMP_REQUIREMENTS
+
+	#Merging requirements.txt
+	while read l; do
+		pkg=`echo $l | grep -o "^.*=="`
+		pkg=${pkg::-2}
+		sed -i "s/${pkg}==.*/${l}/g" ${REQUIREMENTS}
+		sed -i "s/${pkg}\s*/${l}/g" ${REQUIREMENTS}
+	done < $TMP_REQUIREMENTS
+	rm $TMP_REQUIREMENTS
 }
 
 # Init the django environments
