@@ -3,6 +3,8 @@ Introduction
 
 The project used to create a docker-image for python3 (default with django) container.
 
+All the documentation and source code are published in [GitHub](https://github.com/kensonman/python).
+
 Build
 -----
 
