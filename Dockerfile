@@ -12,8 +12,10 @@ LABEL version="v1.1.0"
 ENV WDIR=/usr/src/app
 
 COPY scripts/entrypoint.sh /entrypoint.sh
-RUN apk add --update --no-cache bash gettext \
+RUN apk add --update --no-cache bash gettext build-base postgresql-dev \
 		&& pip install --upgrade pip \
+		&& pip install psycopg2 \
+		&& apk del build-base \
 		&& chmod +x /entrypoint.sh \
 		&& mkdir -p $WDIR
 WORKDIR $WDIR
