@@ -40,6 +40,7 @@ init()
 	echo "Going to init the container..."
 	if [ -f ${REQUIREMENTS} ]; then
 		pip install -r ${REQUIREMENTS}
+		pip freeze > ${REQUIREMENTS}
 	fi
 }
 
