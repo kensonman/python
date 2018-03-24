@@ -1,12 +1,10 @@
-Introduction
-============
+# Introduction
 
 The project used to create a docker-image for python3 (default with django) container.
 
 All the documentation and source code are published in [GitHub](https://github.com/kensonman/python).
 
-Build
------
+# Build
 
 Just simply execute the build command.
 
@@ -14,8 +12,7 @@ Just simply execute the build command.
 		cd kenson.python
 		docker build -t kensonman/python:latest .
 
-Usage
------
+# Usage
 
 The project will creating the iamge base on [python:alpine](https://hub.docker.com/_/python/) image.
 It will provide an [entrypoint](https://github.com/kensonman/python/blob/master/scripts/entrypoint.sh) for execution.
