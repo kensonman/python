@@ -16,10 +16,11 @@ RUN apk add --update --no-cache bash gettext build-base postgresql-dev jpeg-dev\
 		&& pip install --upgrade pip \
 		&& pip install psycopg2 pillow \
 		&& apk del build-base \
-		&& chmod +x /entrypoint.sh \
+		&& chmod +x /entrypoint \
+      && ln -s /entrypoint /entrypoint.sh \
 		&& mkdir -p $WDIR
 WORKDIR $WDIR
 
-ENTRYPOINT ["/entrypoint.sh"]
+ENTRYPOINT ["/entrypoint"]
 CMD ["run", "0.0.0.0:8000"]
 EXPOSE 8000
