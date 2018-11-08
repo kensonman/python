@@ -10,7 +10,7 @@ LABEL maintainer="Kenson Man <kenson@kenson.idv.hk>"
 LABEL version="v1.2.0"
 
 ENV WDIR=/usr/src/app
-ENV PYTHONPATH=/lib:/usr/lib
+ENV PYTHONPATH=/lib:/usr/lib:/usr/local/lib/python3.7:/usr/local/lib/python3.7/site-packages
 
 COPY scripts/entrypoint /entrypoint
 RUN apk add --update --no-cache bash gettext build-base postgresql-dev jpeg-dev zlib-dev sudo \
