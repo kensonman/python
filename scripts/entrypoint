@@ -4,7 +4,7 @@
 
 CWD="/usr/src/app"
 REQUIREMENTS=${REQUIREMENTS:-/usr/src/app/requirements.txt}
-USERID=${UID:-1000}
+USERID=theuser
 
 create()
 {
@@ -73,6 +73,7 @@ makemessages()
 	fi
 
 	../manage.py makemessages -l ${LANG}
+	chown -R ${USERID} .
 }
 
 compilemessages()
@@ -84,6 +85,7 @@ compilemessages()
 	cd ${APPNAME}
 
 	../manage.py compilemessages
+	chown -R ${USERID} .
 }
 
 run()
@@ -93,7 +95,7 @@ run()
 	ADDR=${2:-"0.0.0.0:8000"}
 	cd ${CWD}
 
-	./manage.py runserver ${ADDR}
+	sudo -u ${USERID} ./manage.py runserver ${ADDR}
 }
 
 cmd()

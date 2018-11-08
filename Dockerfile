@@ -7,17 +7,18 @@
 FROM python:alpine
 
 LABEL maintainer="Kenson Man <kenson@kenson.idv.hk>"
-LABEL version="v1.1.0"
+LABEL version="v1.2.0"
 
 ENV WDIR=/usr/src/app
+ENV PYTHONPATH=/lib:/usr/lib
 
-COPY scripts/entrypoint.sh /entrypoint.sh
-RUN apk add --update --no-cache bash gettext build-base postgresql-dev jpeg-dev\
+COPY scripts/entrypoint /entrypoint
+RUN apk add --update --no-cache bash gettext build-base postgresql-dev jpeg-dev zlib-dev sudo \
 		&& pip install --upgrade pip \
 		&& pip install psycopg2 pillow \
 		&& apk del build-base \
 		&& chmod +x /entrypoint \
-      && ln -s /entrypoint /entrypoint.sh \
+      && adduser -S theuser \
 		&& mkdir -p $WDIR
 WORKDIR $WDIR
 
