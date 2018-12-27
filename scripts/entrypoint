@@ -94,8 +94,8 @@ run()
    ADDR=${2:-"0.0.0.0:8000"}
    cd ${CWD}
 
-   sudo chown ${USERID} logs
-   sudo chmod +w logs
+   sudo chown -R ${USERID} logs
+   sudo chmod -R +w logs
    sudo -u ${USERID} ./manage.py runserver ${ADDR}
 }
 
