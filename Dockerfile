@@ -18,7 +18,7 @@ RUN apk add --update --no-cache bash gettext build-base postgresql-dev jpeg-dev 
 		&& pip install psycopg2 pillow \
 		&& apk del build-base \
 		&& chmod +x /entrypoint \
-      && adduser -S theuser \
+      && adduser -Du 1000 theuser \
 		&& mkdir -p $WDIR
 WORKDIR $WDIR
 
