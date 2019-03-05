@@ -78,10 +78,11 @@ makemessages()
    # Create the locale directory
    if [ ! -d "locale" ]; then
       mkdir locale
+      chown -R ${USERID} locale
    fi
 
    ../manage.py makemessages -l ${LANG}
-   chown -R ${USERID} .
+   chown -R ${USERID} locale 
 }
 
 compilemessages()
@@ -93,7 +94,7 @@ compilemessages()
    cd ${APPNAME}
 
    ../manage.py compilemessages
-   chown -R ${USERID} .
+   chown -R ${USERID} locale
 }
 
 run()
@@ -105,7 +106,7 @@ run()
 
    sudo chown -R ${USERID} logs
    sudo chmod -R +w logs
-   sudo -u ${USERID} ./manage.py runserver ${ADDR}
+   sudo -E -u ${USERID} ./manage.py runserver ${ADDR}
 }
 
 cmd()
@@ -114,7 +115,7 @@ cmd()
    echo "Going to execute the Django command...."
    cd ${CWD}
 
-   ./manage.py ${*:2}
+   sudo -E -u ${USERID} ./manage.py ${*:2}
 }
 
 printhelp()
