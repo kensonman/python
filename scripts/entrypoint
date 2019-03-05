@@ -4,6 +4,7 @@
 
 CWD="/usr/src/app"
 REQUIREMENTS=${REQUIREMENTS:-/usr/src/app/requirements.txt}
+STARTUP=${STARTUP:-/usr/src/app/requirements.sh}
 USERID=theuser
 
 create()
@@ -50,8 +51,16 @@ create()
 # Init the django environments
 init()
 {
-   echo "Going to init the container..."
+   echo "Initiate the container ..." 
+
+   if [ -f ${STARTUP} ]; then
+      echo "Going to execute [${STARTUP}] in container..."
+      chmod +x ${STARTUP}
+      ${STARTUP}
+   fi
+
    if [ -f ${REQUIREMENTS} ]; then
+      echo "Going to init the container..."
       pip install -r ${REQUIREMENTS}
       pip freeze > ${REQUIREMENTS}
    fi
