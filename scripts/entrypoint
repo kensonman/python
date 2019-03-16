@@ -70,7 +70,7 @@ makemessages()
 {
 	init
 	APPNAME=${2:-app}
-	LANG=${3:-zh_hant}
+	LANG=${3-all}
 	echo "Going to makeing messages<${LANG}> in project<${APPNAME}>..."
 	cd ${CWD}
 	cd ${APPNAME}
