@@ -72,7 +72,11 @@ makemessages()
 		mkdir locale
 	fi
 
-	../manage.py makemessages -l ${LANG}
+   if [ "${LANG}" -eq "all" ] || [ -z "${LANG}" ]; then
+      ../manage.py makemessages
+   else
+      ../manage.py makemessages -l ${LANG}
+   fi
 	chown -R ${USERID} .
 }
 
