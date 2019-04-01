@@ -13,13 +13,14 @@ ENV WDIR=/usr/src/app
 ENV PYTHONPATH=/lib:/usr/lib:/usr/local/lib/python3.7:/usr/local/lib/python3.7/site-packages
 
 COPY scripts/entrypoint /entrypoint
-RUN apk add --update --no-cache bash gettext build-base postgresql-dev jpeg-dev zlib-dev sudo \
-		&& pip install --upgrade pip \
-		&& pip install psycopg2 pillow \
-		&& apk del build-base \
-		&& chmod +x /entrypoint \
-      && adduser -Du 1000 theuser \
-		&& mkdir -p $WDIR
+RUN apk add --update --no-cache bash gettext build-base postgresql-dev jpeg-dev zlib-dev sudo python3-dev \
+   && pip install --upgrade pip \
+   && pip install psycopg2 pillow \
+   && chmod +x /entrypoint \
+   && adduser -Du 1000 theuser \
+   && mkdir -p $WDIR \
+   && echo "Finished"
+
 WORKDIR $WDIR
 
 ENTRYPOINT ["/entrypoint"]
