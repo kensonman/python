@@ -66,6 +66,17 @@ init()
    fi
 }
 
+makemigrations()
+{
+   init
+   APPNAME=${2:-app}
+   echo "Going to making migrations in project<${APPNAME}>..."
+   cd ${CWD}
+
+   ./manage.py makemigrations ${APPNAME}
+   chown -R ${USERID} ${APPNAME}/migrations 
+}
+
 makemessages()
 {
    init
@@ -129,6 +140,8 @@ printhelp()
    echo "    Usage: create <AppName>"
    echo "  init             - Init the Django environment and install the dependencies;"
    echo "    Usage: init"
+   echo "  makemigrations   - Make the migrations by django command;"
+   echo "    Usage: makemigrations <AppName>"
    echo "  makemessages     - Make the specify translation by django command;"
    echo "    Usage: makemessages <AppName> [LangCode|default:zh_hant]"
    echo "  compilemessages  - Compile the specify translation by django command;"
@@ -148,6 +161,9 @@ case "$1" in
       ;;
    init)
       init "$@"
+      ;;
+   makemigrations)
+      makemigrations "$@"
       ;;
    makemessages)
       makemessages "$@"
