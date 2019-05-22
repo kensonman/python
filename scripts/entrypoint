@@ -4,7 +4,7 @@
 
 CWD="/usr/src/app"
 REQUIREMENTS=${REQUIREMENTS:-/usr/src/app/requirements.txt}
-STARTUP=${STARTUP:-/usr/src/app/requirements.sh}
+STARTUP=${STARTUP:-/usr/src/app/prerequirements.sh}
 USERID=theuser
 
 create()
