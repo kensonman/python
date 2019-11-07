@@ -6,6 +6,7 @@ CWD="/usr/src/app"
 REQUIREMENTS=${REQUIREMENTS:-/usr/src/app/requirements.txt}
 STARTUP=${STARTUP:-/usr/src/app/prerequirements.sh}
 USERID=theuser
+VERSION="v1.7"
 
 create()
 {
@@ -135,6 +136,8 @@ cmd()
 
 printhelp()
 {
+   echo "Container kensonman/python:${VERSION}"
+   echo
    echo "This entrypoint support belows commands:"
    echo "  create           - Create a Django project;"
    echo "    Usage: create <AppName>"
@@ -154,6 +157,8 @@ printhelp()
    echo "    Usage: help"
 }
 
+
+echo "Executing the container kensonman/kenson.python:${VERSION}"
 
 case "$1" in
    create)
